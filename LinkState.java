@@ -1,3 +1,7 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 //the Link state program is basically dijkstras algo
 class LinkState{
     //starting value to find the vertix with min value
@@ -66,7 +70,20 @@ class LinkState{
             System.out.println(i + " \t\t " + dist[i]);
         }
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException{
+        int ch;
         
+        try (FileReader fileReader = new FileReader("topofile.txt")) {
+            // Reading and printing the content of the file
+            while ((ch = fileReader.read()) != -1) {
+                System.out.print((char) ch);
+            }
+        }
+        catch(FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        catch(IOException e) {
+            System.out.println("An error occurred while reading the file.");
+        }        
     }
 }
