@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -75,18 +76,27 @@ class LinkState{
         int ch;
         
         try (FileReader fileReader = new FileReader("topofile.txt")) {
-            // Reading and printing the content of the file
-            // while ((ch = fileReader.read()) != -1) {
-            //     System.out.print((char) ch);
-            // }
-            // putting the information from the file into graph format?
-            // for now hard coded
-            int graph[][] = 
-            new int[][] {       {0, 8, 0, 0, 0}, 
-                                {0, 0, 3, 0, 0},
-                                {0, 0, 0, 0, 0},
-                                {1, 0, 0, 0, 1},
-                                {0, 0, 0, 0, 1}};
+            //Buffered reader to read the vertices in the text file
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            //reading the number of vertices
+            int numVertices = Integer.parseInt(bufferedReader.readLine());
+
+            //inputting the file numbers into graph format
+            int graph[][] = new int[numVertices][numVertices];
+
+            for(int i = 0; i < numVertices; i++){
+                String[] values = bufferedReader.readLine().split(" ");
+                for(int j = 0; j < numVertices; j++){
+                    graph[i][j] = Integer.parseInt(values[j]);
+                }
+            }
+
+            // int graph[][] = 
+            // new int[][] {       {0, 8, 0, 0, 0}, 
+            //                     {0, 0, 3, 0, 0},
+            //                     {0, 0, 0, 0, 0},
+            //                     {1, 0, 0, 0, 1},
+            //                     {0, 0, 0, 0, 1}};
             
             //object to run the linkstate algo
             LinkState run = new LinkState();
