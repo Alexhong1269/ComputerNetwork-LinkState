@@ -1,11 +1,12 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Vector;
 
 //the Link state program is basically dijkstras algo
 class LinkState{
     //starting value to find the vertix with min value
-    static final int Vertex = 9;
+    static final int Vertex = 5;
     void dijikstra(int graph[][], int src){
         //distance array to hold the shortest path from source to i
         int dist[] = new int[Vertex];
@@ -48,7 +49,7 @@ class LinkState{
 
     int minDistance(int dist[], Boolean dijSet[]){
         //setting the min value
-        int min = Integer.MIN_VALUE, min_index = -1;
+        int min = Integer.MAX_VALUE, min_index = -1;
 
         for(int i = 0; i < Vertex; i++){
             //check to see if the pathing is true and if the current distance is less than the min
@@ -75,9 +76,22 @@ class LinkState{
         
         try (FileReader fileReader = new FileReader("topofile.txt")) {
             // Reading and printing the content of the file
-            while ((ch = fileReader.read()) != -1) {
-                System.out.print((char) ch);
-            }
+            // while ((ch = fileReader.read()) != -1) {
+            //     System.out.print((char) ch);
+            // }
+            // putting the information from the file into graph format?
+            // for now hard coded
+            int graph[][] = 
+            new int[][] {       {0, 8, 0, 0, 0}, 
+                                {0, 0, 3, 0, 0},
+                                {0, 0, 0, 0, 0},
+                                {1, 0, 0, 0, 1},
+                                {0, 0, 0, 0, 1}};
+            
+            //object to run the linkstate algo
+            LinkState run = new LinkState();
+
+            run.dijikstra(graph, 0);
         }
         catch(FileNotFoundException e) {
             System.out.println("File not found");
