@@ -84,10 +84,20 @@ class LinkState{
             //inputting the file numbers into graph format
             int graph[][] = new int[numVertices][numVertices];
 
-            for(int i = 0; i < numVertices; i++){
-                String[] values = bufferedReader.readLine().split(" ");
-                for(int j = 0; j < numVertices; j++){
-                    graph[i][j] = Integer.parseInt(values[j]);
+            String line;
+            //looping to read the topofile
+            while ((line = bufferedReader.readLine()) != null){
+                String[] values = line.split("\\s+");
+                //checking to see if each line has 3 values
+                if(values.length == 3){
+                    //left value is source
+                    int source = Integer.parseInt(values[0]);
+                    //middle value is destination
+                    int destination = Integer.parseInt(values[1]);
+                    //right value is the weight
+                    int weight = Integer.parseInt(values[2]);
+
+                    graph[source - 1][destination - 1] = weight;
                 }
             }
 
