@@ -11,7 +11,7 @@ import java.util.Scanner;
 //the Link state program is basically dijkstras algo
 class LinkStateTest{
     //starting value to find the vertix with min value
-    static final int Vertex = 5;
+    static int Vertex = 0;
     void dijikstra(int graph[][], int src){
         //distance array to hold the shortest path from source to i
         int dist[] = new int[Vertex];
@@ -79,32 +79,50 @@ class LinkStateTest{
     public static void main(String[] args) throws IOException {
         try (Scanner scanner = new Scanner(new FileReader("topofile.txt"))) {
             int numVertices = scanner.nextInt();
-            // int numVertices = Integer.parseInt(bufferedReader.readLine().split("\\s+")[0]);
 
             int graph[][] = new int[Vertex][Vertex];
 
-            // Initialize the graph with zeros
-            for (int i = 0; i < Vertex; i++) {
-                for (int j = 0; j < Vertex; j++) {
-                    graph[i][j] = 0;
-                }
-            }
+            // // Initialize the graph with zeros
+            // for (int i = 0; i < Vertex; i++) {
+            //     for (int j = 0; j < Vertex; j++) {
+            //         graph[i][j] = 0;
+            //     }
+            // }
 
-            String line;
-            while (scanner.hasNextInt()) {
-                int source = scanner.nextInt() - 1; // Adjusting for 0-based indexing
-                int destination = scanner.nextInt() - 1;
-                int weight = scanner.nextInt();
+            // String line;
+            while (scanner.hasNext()) {
+                if (scanner.hasNextInt()) {
+                    int source = scanner.nextInt() - 1; // Adjusting for 0-based indexing
+                    if (scanner.hasNextInt()) {
+                        int destination = scanner.nextInt() - 1;
+                        if (scanner.hasNextInt()) {
+                            int weight = scanner.nextInt();
+            
+                           //dynamically determing the number of vertices
+                            int maxVertex = Math.max(source, destination) + 1;
 
-                System.out.println("Source: " + source + ", Destination: " + destination + ", Weight: " + weight);
+                            Vertex = Math.max(Vertex, maxVertex);
 
-                if(source >= 0 && source < Vertex && destination >= 0 && destination < Vertex){
-                     // Assuming the graph is undirected, update both directions
-                    graph[source][destination] = weight;
-                    graph[destination][source] = weight;
-                }
-                else{
-                    System.out.println("Index out of bounds.");
+                            graph = new int[Vertex][Vertex];
+            
+                            // Check if indices are within bounds
+                            if (source >= 0 && source < Vertex && destination >= 0 && destination < Vertex) {
+                                // Assuming the graph is undirected, update both directions
+                                graph[source][destination] = weight;
+                                graph[destination][source] = weight;
+                            } else {
+                                // Print an error message if indices are out of bounds
+                                System.out.println("Error: Indices out of bounds.");
+                            }
+                        } else {
+                            System.out.println("Error: Missing weight value.");
+                        }
+                    } else {
+                        System.out.println("Error: Missing destination value.");
+                    }
+                } else {
+                    // Consume non-integer tokens or handle the case where there is no next integer
+                    scanner.next();
                 }
             }
 
