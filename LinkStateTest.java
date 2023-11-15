@@ -98,10 +98,14 @@ class LinkStateTest{
 
                 System.out.println("Source: " + source + ", Destination: " + destination + ", Weight: " + weight);
 
-
-                // Assuming the graph is undirected, update both directions
-                // graph[source][destination] = weight;
-                graph[destination][source] = weight;
+                if(source >= 0 && source < Vertex && destination >= 0 && destination < Vertex){
+                     // Assuming the graph is undirected, update both directions
+                    graph[source][destination] = weight;
+                    graph[destination][source] = weight;
+                }
+                else{
+                    System.out.println("Index out of bounds.");
+                }
             }
 
             // Now, you have the graph ready. Let's find the shortest path.
