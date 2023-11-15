@@ -3,6 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Map;
+import java.util.Scanner;
 
 //the Link state program is basically dijkstras algo
 class LinkState{
@@ -27,7 +31,7 @@ class LinkState{
         dist[src] = 0;
 
         //finding the shortest path(not including itself thats why its -1)
-        for(int i = 0; i < Vertex - 1; i++){
+        for(int i = 1; i < Vertex; i++){
             //picking the min distance between adjacent vertices from the source
             int firstPick = minDistance(dist, dijSet);
 
@@ -83,21 +87,48 @@ class LinkState{
 
             //inputting the file numbers into graph format
             int graph[][] = new int[numVertices][numVertices];
+            //Hashmap to store the nodes and which nodoes are next to each other
+            Map<Integer, Integer> vertexMap = new HashMap<>();
+
+            for(int i = 0; i < numVertices; i++){
+                for(int j = 0; j < numVertices; j++){
+                    graph[i][j] = 0;
+                }
+            }
 
             String line;
+            int vertexCount = 0;
             //looping to read the topofile
             while ((line = bufferedReader.readLine()) != null){
-                String[] values = line.split("\\s+");
-                //checking to see if each line has 3 values
-                if(values.length == 3){
-                    //left value is source
-                    int source = Integer.parseInt(values[0]);
-                    //middle value is destination
-                    int destination = Integer.parseInt(values[1]);
-                    //right value is the weight
-                    int weight = Integer.parseInt(values[2]);
+                String[] values = line.trim().split("\\s+");
 
-                    graph[source - 1][destination - 1] = weight;
+                if (values.length == 3) {
+                    try {
+                        // Split values[0], values[1], and values[2] if they contain spaces
+                        String[] sourceValues = values[0].split(" ");
+                        String[] destinationValues = values[1].split(" ");
+                        String[] weightValues = values[2].split(" ");
+
+                        int source = Integer.parseInt(sourceValues[0]);
+                        int destination = Integer.parseInt(destinationValues[0]);
+                        int weight = Integer.parseInt(weightValues[0]);
+
+                        // mapping the vertices
+                        if (!vertexMap.containsKey(source)) {
+                            vertexMap.put(source, vertexCount++);
+                        }
+                        if (!vertexMap.containsKey(destination)) {
+                            vertexMap.put(destination, vertexCount++);
+                        }
+
+                        graph[vertexMap.get(source) - 1][vertexMap.get(destination) - 1] = weight;
+                    } 
+                    catch (NumberFormatException e) {
+                        System.out.println("Error parsing integers on line: " + line);
+                    }
+                } 
+                else {
+                    System.out.println("Invalid line format: " + line);
                 }
             }
 
