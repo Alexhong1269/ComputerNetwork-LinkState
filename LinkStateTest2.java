@@ -37,11 +37,11 @@ class Graph {
 
         dist[src] = 0;
 
-        for (int count = 1; count <= V + 1; count++) {
+        for (int count = 1; count <= V; count++) {
             int u = minDistance(dist, dijSet);
             dijSet[u] = true;
 
-            for (Edge neighbor : adjacencyList.get(u)) {
+            for (Edge neighbor : adjacencyList.get(u - 1)) {
                 int v = neighbor.dest;
                 int weight = neighbor.weight;
                 if (!dijSet[v] && dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
@@ -66,11 +66,11 @@ class Graph {
     }
 
     void print(int dist[], int id[], int nexthop[]) {
-        for (int i = 0; i < V + 1; i++) {
+        for (int i = 0; i < V; i++) {
             System.out.println(id[i] + "\t\t\t" + dist[i]);
         }
         System.out.println("Output file: ");
-        for (int i = 0; i < dist.length; i++) {
+        for (int i = 0; i < V; i++) {
             System.out.println(id[i] + "\t\t" + (nexthop[id[i]] == 0 ? id[i] : nexthop[id[i]]) + "\t\t" + dist[id[i]]);
         }
     }
@@ -79,6 +79,11 @@ class Graph {
         Set<Integer> Vertices = new HashSet<>();
         String topo = "topofile.txt";
         String change = "change.txt";
+
+        // int numV = Vertices.size();
+        // int[] id = Vertices.stream().mapToInt(Integer::intValue).toArray();
+
+        // Graph graph = new Graph(numV);
 
         try {
             Scanner scanner = new Scanner(new File(topo));
@@ -108,6 +113,8 @@ class Graph {
                 if (parts.length == 3) {
                     int src = Integer.parseInt(parts[0]);
                     int dest = Integer.parseInt(parts[1]);
+                    Vertices.add(src);
+                    Vertices.add(dest);
                     int weight = Integer.parseInt(parts[2]);
                     graph.addEdge(src, dest, weight);
                 }
