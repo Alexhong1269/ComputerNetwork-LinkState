@@ -67,11 +67,11 @@ class Graph {
 
     void print(int dist[], int id[], int nexthop[]) {
         for (int i = 0; i < V; i++) {
-            System.out.println(id[i] + "\t\t\t" + dist[i]);
+            System.out.println(id[i] + "\t\t\t" + (dist[i] == Integer.MAX_VALUE ? "INF" : dist[i]));
         }
         System.out.println("Output file: ");
         for (int i = 0; i < V; i++) {
-            System.out.println(id[i] + "\t\t" + (nexthop[id[i]] == 0 ? id[i] : nexthop[id[i]]) + "\t\t" + dist[id[i]]);
+            System.out.println(id[i] + "\t\t" + (nexthop[id[i]] == 0 ? id[i] : nexthop[id[i]]) + "\t\t" + (dist[id[i]] == Integer.MAX_VALUE ? "INF" : dist[id[i]]));
         }
     }
 
