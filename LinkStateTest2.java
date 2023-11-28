@@ -30,7 +30,7 @@ class Graph {
         int[] dist = new int[V + 1];
         boolean[] dijSet = new boolean[V + 1];
 
-        for (int i = 0; i <= V; i++) {
+        for (int i = 1; i <= V; i++) {
             dist[i] = Integer.MAX_VALUE;
             dijSet[i] = false;
         }
@@ -66,15 +66,10 @@ class Graph {
     }
 
     void print(int dist[], int id[], int nexthop[], PrintWriter writer) {
-        writer.println("Source Node\tDestination Node\tDistance");
+        writer.println("Source Node\tDestination Node\tDistance\tNext Hop");
         for (int i = 1; i <= V; i++) {
-            writer.println(id[i - 1] + "\t\t\t" + (dist[id[i - 1]] == Integer.MAX_VALUE ? "INF" : dist[id[i - 1]]));
-        }
-        writer.println("Output file: ");
-        for (int i = 1; i <= V; i++) {
-            int destination = id[i - 1];
-            int nextHopId = nexthop[destination];
-            writer.println(id[i - 1] + "\t\t" + (nextHopId == 0 ? "INF" : id[nextHopId - 1]) + "\t\t" + (dist[destination] == Integer.MAX_VALUE ? "INF" : dist[destination]));
+            writer.print(id[i - 1] + "\t\t\t" + (dist[id[i - 1]] == Integer.MAX_VALUE ? "INF" : dist[id[i - 1]]));
+            writer.println("\t\t\t" + (nexthop[id[i - 1]] == 0 ? "INF" : id[nexthop[id[i - 1]] - 1]));
         }
     }
 
