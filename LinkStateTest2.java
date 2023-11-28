@@ -25,7 +25,7 @@ class Graph {
         adjacencyList.get(src).add(new Edge(dest, weight));
     }
 
-    void dijkstra(int src, int[] id) {
+    void dijkstra(int src, int[] id, PrintWriter writer) {
         int[] nexthop = new int[V + 1];
         int[] dist = new int[V + 1];
         boolean[] dijSet = new boolean[V + 1];
@@ -50,7 +50,7 @@ class Graph {
                 }
             }
         }
-        print(dist, id, nexthop);
+        print(dist, id, nexthop, writer);
     }
 
     int minDistance(int dist[], boolean dijSet[]) {
@@ -65,13 +65,16 @@ class Graph {
         return min_index;
     }
 
-    void print(int dist[], int id[], int nexthop[]) {
-        for (int i = 0; i < V; i++) {
-            System.out.println(id[i] + "\t\t\t" + (dist[i] == Integer.MAX_VALUE ? "INF" : dist[i]));
+    void print(int dist[], int id[], int nexthop[], PrintWriter writer) {
+        writer.println("Source Node\tDestination Node\tDistance");
+        for (int i = 1; i <= V; i++) {
+            writer.println(id[i - 1] + "\t\t\t" + (dist[id[i - 1]] == Integer.MAX_VALUE ? "INF" : dist[id[i - 1]]));
         }
-        System.out.println("Output file: ");
-        for (int i = 0; i < V; i++) {
-            System.out.println(id[i] + "\t\t" + (nexthop[id[i]] == 0 ? id[i] : nexthop[id[i]]) + "\t\t" + (dist[id[i]] == Integer.MAX_VALUE ? "INF" : dist[id[i]]));
+        writer.println("Output file: ");
+        for (int i = 1; i <= V; i++) {
+            int destination = id[i - 1];
+            int nextHopId = nexthop[destination];
+            writer.println(id[i - 1] + "\t\t" + (nextHopId == 0 ? "INF" : id[nextHopId - 1]) + "\t\t" + (dist[destination] == Integer.MAX_VALUE ? "INF" : dist[destination]));
         }
     }
 
@@ -79,11 +82,6 @@ class Graph {
         Set<Integer> Vertices = new HashSet<>();
         String topo = "topofile.txt";
         String change = "change.txt";
-
-        // int numV = Vertices.size();
-        // int[] id = Vertices.stream().mapToInt(Integer::intValue).toArray();
-
-        // Graph graph = new Graph(numV);
 
         try {
             Scanner scanner = new Scanner(new File(topo));
@@ -120,13 +118,23 @@ class Graph {
                 }
             }
 
+            // Use PrintWriter to write to a text file
+            PrintWriter writer = new PrintWriter(new FileWriter("output.txt"));
+
             for (int i = 1; i <= numV; i++) {
-                System.out.println("Source Node: " + i + "   Distance from Source");
-                graph.dijkstra(i, id);
+                writer.println("Source Node: " + i + "   Distance from Source");
+                graph.dijkstra(i, id, writer);
             }
+
+            // Close the writer to ensure the changes are saved
+            writer.close();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.err.println("File not found. Make sure the file path is correct.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error writing to the file.");
         }
     }
 }

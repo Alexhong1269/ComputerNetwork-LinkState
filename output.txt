@@ -1,0 +1,65 @@
+Source Node: 1   Distance from Source
+Source Node	Destination Node	Distance
+1			0
+2			INF
+3			INF
+4			INF
+5			INF
+Output file: 
+1		INF		0
+2		INF		INF
+3		INF		INF
+4		INF		INF
+5		INF		INF
+Source Node: 2   Distance from Source
+Source Node	Destination Node	Distance
+1			INF
+2			0
+3			INF
+4			INF
+5			INF
+Output file: 
+1		INF		INF
+2		INF		0
+3		INF		INF
+4		INF		INF
+5		INF		INF
+Source Node: 3   Distance from Source
+Source Node	Destination Node	Distance
+1			5
+2			INF
+3			0
+4			INF
+5			4
+Output file: 
+1		5		5
+2		INF		INF
+3		INF		0
+4		INF		INF
+5		3		4
+Source Node: 4   Distance from Source
+Source Node	Destination Node	Distance
+1			INF
+2			INF
+3			INF
+4			0
+5			INF
+Output file: 
+1		INF		INF
+2		INF		INF
+3		INF		INF
+4		INF		0
+5		INF		INF
+Source Node: 5   Distance from Source
+Source Node	Destination Node	Distance
+1			1
+2			INF
+3			INF
+4			INF
+5			0
+Output file: 
+1		5		1
+2		INF		INF
+3		INF		INF
+4		INF		INF
+5		INF		0
