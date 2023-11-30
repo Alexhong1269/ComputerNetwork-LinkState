@@ -1,35 +1,11 @@
-Source Node: 1   Distance from Source
-Source Node	Destination Node	Distance	Next Hop
-1			0			INF
-2			INF			INF
-3			INF			INF
-4			INF			INF
-5			INF			INF
-Source Node: 2   Distance from Source
-Source Node	Destination Node	Distance	Next Hop
-1			INF			INF
-2			0			INF
-3			INF			INF
-4			INF			INF
-5			INF			INF
-Source Node: 3   Distance from Source
-Source Node	Destination Node	Distance	Next Hop
-1			5			5
-2			INF			INF
-3			0			INF
-4			INF			INF
-5			4			3
-Source Node: 4   Distance from Source
-Source Node	Destination Node	Distance	Next Hop
-1			INF			INF
-2			INF			INF
-3			INF			INF
-4			0			INF
-5			INF			INF
-Source Node: 5   Distance from Source
-Source Node	Destination Node	Distance	Next Hop
-1			1			5
-2			INF			INF
-3			INF			INF
-4			INF			INF
-5			0			INF
+1			2
+2			4
+3			7
+4			1
+5			0
+Output file: 
+1		4		2
+2		5		4
+3		2		7
+4		5		1
+5		5		0
